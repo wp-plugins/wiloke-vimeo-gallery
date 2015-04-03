@@ -78,42 +78,46 @@
 			{
 				var _target,  _getData, $shortcodeId, parseData, _regex, $control = $("#pi-vimeo-popup-wrapper"), $formControl="";
 				_target = event.target;
+				
 				if ( _target  )
 				{
-					parseData = function(s, n)
+					if ( $(_target).attr("data-command") == "pi-vimeo-edit" )
 					{
-						n = new RegExp(n + '=[\"\']([^\"\']+)[\'\"]', 'g').exec(s);
-						return n ? tinymce.DOM.decode(n[1]) : '';
-					}
-
-				 	if($(_target).attr("data-mce-selected") == 1)
-					{
-						_getData = $(_target).data("shortcodes");
-						$shortcodeId = parseData(_getData, 'data_shortcodeid');						
-						
-						for ( var i in _params )
+						parseData = function(s, n)
 						{
-							_regex 	= new RegExp(_params[i]+'=\'([^\']*)', 'g');
-							_target = _regex.exec(_getData)
-							
-							_target = _target ? _target[1] : "";
-
-							/*=========================================*/
-							/*	Hidden Other Setting
-							/*=========================================*/
-							if ( _params[i] == 'type' )
-							{
-								$(".pi_only_one").addClass("hidden");
-								$(_oFormControl[_target]).addClass("active").removeClass("hidden");
-								console.log(_oFormControl[_target]);
-							}
-
-
-							$control.find("[name='"+_params[i]+"']").val(_target);
-
-
+							n = new RegExp(n + '=[\"\']([^\"\']+)[\'\"]', 'g').exec(s);
+							return n ? tinymce.DOM.decode(n[1]) : '';
 						}
-						tb_show("Settings", "#TB_inline?height=800&amp;width=1000&amp;inlineId=pi-vimeo-popup-wrapper");
+
+					 	if($(_target).attr("data-mce-selected") == 1)
+						{
+							_getData = $(_target).data("shortcodes");
+							$shortcodeId = parseData(_getData, 'data_shortcodeid');						
+							
+							for ( var i in _params )
+							{
+								_regex 	= new RegExp(_params[i]+'=\'([^\']*)', 'g');
+								_target = _regex.exec(_getData)
+								
+								_target = _target ? _target[1] : "";
+
+								/*=========================================*/
+								/*	Hidden Other Setting
+								/*=========================================*/
+								if ( _params[i] == 'type' )
+								{
+									$(".pi_only_one").addClass("hidden");
+									$(_oFormControl[_target]).addClass("active").removeClass("hidden");
+									console.log(_oFormControl[_target]);
+								}
+
+
+								$control.find("[name='"+_params[i]+"']").val(_target);
+
+
+							}
+							tb_show("Settings", "#TB_inline?height=800&amp;width=1000&amp;inlineId=pi-vimeo-popup-wrapper");
+						}
 					}
 				}		
 			})
@@ -126,7 +130,7 @@
 			reg = new RegExp('\\[(pi_vimeo_gallery)([^\\]]*)\\]', 'g');
 			return co.replace( reg, function(match, shortcode, attr)
 			{
-				return "<p class='pi_wrap'><img data-mce-placeholder='true' src='"+imgPlaceholder+"' class=\'pi-edit-vimeo-gallery data-mce-placeholder mceItem\'  data-shortcodes='"+tinymce.DOM.encode(attr)+"' data-command=\'pi-vimeo-edit\'></p>";
+				return "<p class='pi_vimeo_gallery_wrapper'><img data-mce-placeholder='true' src='"+imgPlaceholder+"' class=\'pi-edit-vimeo-gallery data-mce-placeholder mceItem\'  data-shortcodes='"+tinymce.DOM.encode(attr)+"' data-command=\'pi-vimeo-edit\'></p>";
 			})
 		}
 
@@ -157,7 +161,7 @@
 
 				if ( _shortcode == 'pi_vimeo_gallery' )
 				{
-					return '<p class="pi_wrap">['+tinymce.trim(_shortcode)+' '+tinymce.trim(_gAttrs)+']</p>';
+					return '<p class="pi_vimeo_gallery_wrapper">['+tinymce.trim(_shortcode)+' '+tinymce.trim(_gAttrs)+']</p>';
 				}
 				return match;
 			})			

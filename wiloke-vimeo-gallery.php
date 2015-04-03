@@ -4,7 +4,7 @@ Plugin Name:  Wiloke Vimeo Gallery
 Plugin URI: http://test.wiloke.com/wp-content/uploads/2015/03/wiloke-vimeo-gallery.zip
 Author URI: wiloke.com
 Author: wiloke
-Version: 1.0
+Version: 1.1
 Description: The easiest way to create beautiful Vimeo galleries on your WordPress site.
 License: Under GPL2
 
