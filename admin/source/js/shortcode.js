@@ -130,7 +130,7 @@
 			reg = new RegExp('\\[(pi_vimeo_gallery)([^\\]]*)\\]', 'g');
 			return co.replace( reg, function(match, shortcode, attr)
 			{
-				return "<p class='pi_vimeo_gallery_wrapper'><img data-mce-placeholder='true' src='"+imgPlaceholder+"' class=\'pi-edit-vimeo-gallery data-mce-placeholder mceItem\'  data-shortcodes='"+tinymce.DOM.encode(attr)+"' data-command=\'pi-vimeo-edit\'></p>";
+				return "<img data-mce-placeholder='true' src='"+imgPlaceholder+"' class=\'pi-edit-vimeo-gallery data-mce-placeholder mceItem\'  data-shortcodes='"+tinymce.DOM.encode(attr)+"' data-command=\'pi-vimeo-edit\'>";
 			})
 		}
 
@@ -161,7 +161,7 @@
 
 				if ( _shortcode == 'pi_vimeo_gallery' )
 				{
-					return '<p class="pi_vimeo_gallery_wrapper">['+tinymce.trim(_shortcode)+' '+tinymce.trim(_gAttrs)+']</p>';
+					return '['+tinymce.trim(_shortcode)+' '+tinymce.trim(_gAttrs)+']';
 				}
 				return match;
 			})			
@@ -254,7 +254,7 @@
 				_settings = $(".pi_form_setting.active").getContent();
 				_generalSettings = $("#pi-vimeo-general-settings").getContent();
 				_type 	= $(".pi_form_setting.active").data("form");
-				_settings = '[pi_vimeo_gallery '+ _settings + ' type=\''+_type+'\' ' +_generalSettings+' data_shortcodeid=\'pi_vimeo_gallery\']';
+				_settings = '<div class="pi_vimeo_gallery_wrapper">[pi_vimeo_gallery '+ _settings + ' type=\''+_type+'\' ' +_generalSettings+' data_shortcodeid=\'pi_vimeo_gallery\']</div>';
 				tinyMCE.activeEditor.execCommand('mceInsertContent', 0, _settings);
 				pi_reset();
 				tb_remove();
